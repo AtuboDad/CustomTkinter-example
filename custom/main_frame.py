@@ -23,6 +23,6 @@ class MianFrame(customtkinter.CTkFrame):
         self.navigation_frame = NavigationFrame(master=self)
 
     def show(self):
-        self.grid(row=0, column=0, sticky="ns")
+        self.grid(row=0, column=0, sticky="nsew")
         
         self.navigation_frame.show()
