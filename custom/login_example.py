@@ -13,7 +13,7 @@ class App(customtkinter.CTk):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
 
-        self.title("CustomTkinter example_background_image.py")
+        self.title("XXX软件")
         self.resizable(False, False)
 
         # load and create background image
@@ -61,11 +61,4 @@ class App(customtkinter.CTk):
 
 if __name__ == "__main__":
     app = App()
-
-    screenwidth = app.winfo_screenwidth()
-    screenheight = app.winfo_screenheight()
-    print((screenwidth - app.width) / 2, (screenheight - app.height) / 2)
-    app.geometry = f'{app.width}x{app.height}+{(screenwidth - app.width) / 2}+{(screenheight - app.height) / 2}'
-    # self.geometry(f"{self.width}x{self.height}")
-
     app.mainloop()
