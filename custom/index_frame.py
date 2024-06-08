@@ -9,8 +9,6 @@ class IndexFrame(customtkinter.CTkFrame):
     def __init__(self, master=None):
         super().__init__(master, corner_radius=0)
 
-
-        # load images with light and dark mode image
         image_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "test_images")
         self.logo_image = customtkinter.CTkImage(Image.open(os.path.join(image_path, "CustomTkinter_logo_single.png")), size=(26, 26))
         self.large_test_image = customtkinter.CTkImage(Image.open(os.path.join(image_path, "large_test_image.png")), size=(500, 150))
@@ -25,23 +23,58 @@ class IndexFrame(customtkinter.CTkFrame):
 
         # create home frame
         self.home_frame = customtkinter.CTkFrame(self, corner_radius=0, fg_color="transparent")
-        self.home_frame.grid_columnconfigure(0, weight=1)
 
-        self.home_frame_large_image_label = customtkinter.CTkLabel(self.home_frame, text="", image=self.large_test_image)
-        self.home_frame_large_image_label.grid(row=0, column=0, padx=20, pady=10)
-
-        self.home_frame_button_1 = customtkinter.CTkButton(self.home_frame, text="", image=self.image_icon_image)
-        self.home_frame_button_1.grid(row=1, column=0, padx=20, pady=10)
-        self.home_frame_button_2 = customtkinter.CTkButton(self.home_frame, text="111", image=self.image_icon_image, compound="right")
-        self.home_frame_button_2.grid(row=2, column=0, padx=20, pady=10)
-        self.home_frame_button_3 = customtkinter.CTkButton(self.home_frame, text="222", image=self.image_icon_image, compound="top")
-        self.home_frame_button_3.grid(row=3, column=0, padx=20, pady=10)
-        self.home_frame_button_4 = customtkinter.CTkButton(self.home_frame, text="33", image=self.image_icon_image, compound="bottom", anchor="w")
-        self.home_frame_button_4.grid(row=4, column=0, padx=20, pady=10)
+        self.scrollable_checkbox_frame = ScrollableCheckBoxFrame(master=self.home_frame, command=self.checkbox_frame_event,
+                                                                 item_list=[f"item {i}" for i in range(20)])
+        self.scrollable_checkbox_frame.pack(fill='both', expand=True)
+        self.scrollable_checkbox_frame.add_item("new item")
 
     def show(self, name):
         if name == "home":
-            self.grid(row=0, column=1, sticky="nsew")
-            self.home_frame.grid(row=0, column=1, sticky="nsew")
+            self.pack(side='right', fill='both', expand=True)
+            self.home_frame.pack(fill='both', expand=True)
         else:
             self.grid_forget()
+    
+    def checkbox_frame_event(self):
+        print(f"checkbox frame modified: {self.scrollable_checkbox_frame.get_checked_items()}")
+
+    # def radiobutton_frame_event(self):
+    #     print(f"radiobutton frame modified: {self.scrollable_radiobutton_frame.get_checked_item()}")
+
+    def label_button_frame_event(self, item):
+        print(f"label button frame clicked: {item}")
+
+
+class ScrollableCheckBoxFrame(customtkinter.CTkScrollableFrame):
+    def __init__(self, master, item_list, command=None, **kwargs):
+        super().__init__(master, **kwargs)
+
+        self.command = command
+        self.checkbox_list = []
+        self.button_list = []
+        for i, item in enumerate(item_list):
+            self.add_item(item)
+
+    def add_item(self, item):
+        checkbox = customtkinter.CTkCheckBox(self, text=item, width=200)
+        button = customtkinter.CTkButton(self, text="删 除", width=60, height=24, fg_color='#F56C6C')
+        
+        if self.command is not None:
+            checkbox.configure(command=self.command)
+        checkbox.grid(row=len(self.checkbox_list), column=0, pady=5)
+        button.grid(row=len(self.button_list), column=1, pady=5, padx=5)
+        self.checkbox_list.append(checkbox)
+        self.button_list.append(button)
+
+    def remove_item(self, item):
+        for checkbox, button in zip(self.checkbox_list, self.button_list):
+            if item == checkbox.cget("text"):
+                checkbox.destroy()
+                button.destroy()
+                self.checkbox_list.remove(checkbox)
+                self.button_list.remove(button)
+                return
+
+    def get_checked_items(self):
+        return [checkbox.cget("text") for checkbox in self.checkbox_list if checkbox.get() == 1]

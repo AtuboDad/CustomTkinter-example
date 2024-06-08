@@ -13,6 +13,9 @@ class NavigationFrame(customtkinter.CTkFrame):
     def __init__(self, master=None):
         super().__init__(master, corner_radius=0)
 
+        self.grid_rowconfigure(4, weight=1)
+        self.grid_columnconfigure(0, weight=1)
+
         # load images with light and dark mode image
         image_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "test_images")
         self.logo_image = customtkinter.CTkImage(Image.open(os.path.join(image_path, "CustomTkinter_logo_single.png")), size=(26, 26))
@@ -62,7 +65,6 @@ class NavigationFrame(customtkinter.CTkFrame):
         self.frame_3_button.configure(fg_color=("gray75", "gray25") if name == "frame_3" else "transparent")
 
         # show selected frame
-        print(name)
         self.home_frame.show(name)
         self.second_frame.show(name)
         self.third_frame.show(name)
@@ -84,7 +86,6 @@ class NavigationFrame(customtkinter.CTkFrame):
         customtkinter.set_appearance_mode(new_appearance_mode)
     
     def show(self):
-        self.grid(row=0, column=0, sticky="nsew")
-        self.grid_rowconfigure(4, weight=1)
+        self.pack(side='left', fill='both')
 
         self.home_frame.show('home')
