@@ -2,9 +2,9 @@ import customtkinter
 import os
 from PIL import Image
 
-from index_frame import IndexFrame
-from second_frame import SecondFrame
-from third_frame import ThirdFrame
+from custom.index_frame import IndexFrame
+from custom.second_frame import SecondFrame
+from custom.third_frame import ThirdFrame
 
 customtkinter.set_appearance_mode("dark")
 

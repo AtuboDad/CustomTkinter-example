@@ -1,6 +1,6 @@
 import customtkinter
 
-from login_frame import LoginFrame
+from custom.login_frame import LoginFrame
 
 customtkinter.set_appearance_mode("dark")
 
@@ -18,7 +18,3 @@ class App(customtkinter.CTk):
 
         # create login frame
         self.login_frame = LoginFrame(master=self)
-    
-if __name__ == "__main__":
-    app = App()
-    app.mainloop()

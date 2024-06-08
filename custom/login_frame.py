@@ -1,9 +1,6 @@
 import customtkinter
-from tkinter import messagebox
-from PIL import Image
-import os
 
-from main_frame import MianFrame
+from custom.main_frame import MianFrame
 
 customtkinter.set_appearance_mode("dark")
 

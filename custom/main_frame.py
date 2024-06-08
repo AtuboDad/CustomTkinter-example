@@ -1,6 +1,6 @@
 import customtkinter
 
-from navigation_frame import NavigationFrame
+from custom.navigation_frame import NavigationFrame
 
 customtkinter.set_appearance_mode("dark")
 
