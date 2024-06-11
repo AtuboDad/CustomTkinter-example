@@ -9,7 +9,6 @@ class SecondFrame(customtkinter.CTkFrame):
     def __init__(self, master=None):
         super().__init__(master, corner_radius=0)
 
-
         # load images with light and dark mode image
         image_path = os.path.join(os.path.dirname(os.path.realpath(__file__)), "test_images")
         self.logo_image = customtkinter.CTkImage(Image.open(os.path.join(image_path, "CustomTkinter_logo_single.png")), size=(26, 26))
@@ -25,7 +24,6 @@ class SecondFrame(customtkinter.CTkFrame):
 
         # create home frame
         self.home_frame = customtkinter.CTkFrame(self, corner_radius=0, fg_color="transparent")
-        self.home_frame.grid_columnconfigure(0, weight=1)
 
         self.home_frame_large_image_label = customtkinter.CTkLabel(self.home_frame, text="", image=self.large_test_image)
         self.home_frame_large_image_label.grid(row=0, column=0, padx=20, pady=10)
@@ -41,9 +39,9 @@ class SecondFrame(customtkinter.CTkFrame):
 
     def show(self, name):
         if name == "frame_2":
-            self.grid(row=0, column=1, sticky="nsew")
-            self.home_frame.grid(row=0, column=1, sticky="nsew")
+            self.pack(side='right', fill='both', expand=True)
+            self.home_frame.pack(fill='both', expand=True)
         else:
-            self.grid_forget()
+            self.pack_forget()
 
 

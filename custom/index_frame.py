@@ -22,10 +22,13 @@ class IndexFrame(customtkinter.CTkFrame):
 
 
         # create home frame
-        self.home_frame = customtkinter.CTkFrame(self, corner_radius=0, fg_color="transparent")
+        self.home_frame = customtkinter.CTkFrame(self, corner_radius=0)
+        
+        self.home_frame_large_image_label = customtkinter.CTkLabel(self.home_frame, text="", image=self.large_test_image, compound="left", padx=40, anchor="w", fg_color="transparent")
+        self.home_frame_large_image_label.pack(fill='x')
 
-        self.scrollable_checkbox_frame = ScrollableCheckBoxFrame(master=self.home_frame, command=self.checkbox_frame_event,
-                                                                 item_list=[f"item {i}" for i in range(20)])
+        self.scrollable_checkbox_frame = ScrollableCheckBoxFrame(master=self.home_frame, command=self.checkbox_frame_event, fg_color="transparent",
+                                                                 item_list=[f"item {i}" for i in range(15)])
         self.scrollable_checkbox_frame.pack(fill='both', expand=True)
         self.scrollable_checkbox_frame.add_item("new item")
 
@@ -34,7 +37,7 @@ class IndexFrame(customtkinter.CTkFrame):
             self.pack(side='right', fill='both', expand=True)
             self.home_frame.pack(fill='both', expand=True)
         else:
-            self.grid_forget()
+            self.pack_forget()
     
     def checkbox_frame_event(self):
         print(f"checkbox frame modified: {self.scrollable_checkbox_frame.get_checked_items()}")
@@ -52,29 +55,36 @@ class ScrollableCheckBoxFrame(customtkinter.CTkScrollableFrame):
 
         self.command = command
         self.checkbox_list = []
+        self.label_1 = []
         self.button_list = []
         for i, item in enumerate(item_list):
             self.add_item(item)
 
     def add_item(self, item):
         checkbox = customtkinter.CTkCheckBox(self, text=item, width=200)
+        label = customtkinter.CTkLabel(self, text='测试数据', compound="left", padx=10, anchor="w")
         button = customtkinter.CTkButton(self, text="删 除", width=60, height=24, fg_color='#F56C6C')
         
         if self.command is not None:
             checkbox.configure(command=self.command)
-        checkbox.grid(row=len(self.checkbox_list), column=0, pady=5)
-        button.grid(row=len(self.button_list), column=1, pady=5, padx=5)
+        checkbox.grid(row=len(self.checkbox_list), column=0, padx=(40, 0), pady=5)
+        label.grid(row=len(self.label_1), column=1, pady=5, sticky="w")
+        button.grid(row=len(self.button_list), column=2, padx=5, pady=5)
         self.checkbox_list.append(checkbox)
+        self.label_1.append(label)
         self.button_list.append(button)
 
     def remove_item(self, item):
-        for checkbox, button in zip(self.checkbox_list, self.button_list):
+        for checkbox, button, label in zip(self.checkbox_list, self.button_list, self.label_1):
             if item == checkbox.cget("text"):
                 checkbox.destroy()
                 button.destroy()
+                label.destroy()
                 self.checkbox_list.remove(checkbox)
+                self.label_1.remove(label)
                 self.button_list.remove(button)
                 return
+        
 
     def get_checked_items(self):
         return [checkbox.cget("text") for checkbox in self.checkbox_list if checkbox.get() == 1]
