@@ -56,22 +56,34 @@ class ScrollableCheckBoxFrame(customtkinter.CTkScrollableFrame):
         self.command = command
         self.checkbox_list = []
         self.label_1 = []
+        self.label_2 = []
+        self.label_3 = []
+        self.label_4 = []
         self.button_list = []
         for i, item in enumerate(item_list):
             self.add_item(item)
 
     def add_item(self, item):
         checkbox = customtkinter.CTkCheckBox(self, text=item, width=200)
-        label = customtkinter.CTkLabel(self, text='测试数据', compound="left", padx=10, anchor="w")
+        label1 = customtkinter.CTkLabel(self, text='测试数据1', compound="left", padx=10, anchor="w")
+        label2 = customtkinter.CTkLabel(self, text='测试数据2', compound="left", padx=10, anchor="w")
+        label3 = customtkinter.CTkLabel(self, text='测试数据3', compound="left", padx=10, anchor="w")
+        label4 = customtkinter.CTkLabel(self, text='测试数据4', compound="left", padx=10, anchor="w")
         button = customtkinter.CTkButton(self, text="删 除", width=60, height=24, fg_color='#F56C6C')
         
         if self.command is not None:
             checkbox.configure(command=self.command)
         checkbox.grid(row=len(self.checkbox_list), column=0, padx=(40, 0), pady=5)
-        label.grid(row=len(self.label_1), column=1, pady=5, sticky="w")
-        button.grid(row=len(self.button_list), column=2, padx=5, pady=5)
+        label1.grid(row=len(self.label_1), column=1, padx=5, pady=5, sticky="w")
+        label2.grid(row=len(self.label_2), column=2, padx=5, pady=5, sticky="w")
+        label3.grid(row=len(self.label_3), column=3, padx=5, pady=5, sticky="w")
+        label4.grid(row=len(self.label_4), column=4, padx=5, pady=5, sticky="w")
+        button.grid(row=len(self.button_list), column=5, padx=5, pady=5)
         self.checkbox_list.append(checkbox)
-        self.label_1.append(label)
+        self.label_1.append(label1)
+        self.label_2.append(label2)
+        self.label_3.append(label3)
+        self.label_4.append(label4)
         self.button_list.append(button)
 
     def remove_item(self, item):
