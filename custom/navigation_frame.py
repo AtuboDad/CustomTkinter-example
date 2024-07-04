@@ -5,6 +5,7 @@ from PIL import Image
 from custom.index_frame import IndexFrame
 from custom.second_frame import SecondFrame
 from custom.third_frame import ThirdFrame
+from custom.complex_example import App
 
 customtkinter.set_appearance_mode("dark")
 
@@ -13,7 +14,7 @@ class NavigationFrame(customtkinter.CTkFrame):
     def __init__(self, master=None):
         super().__init__(master, corner_radius=0)
 
-        self.grid_rowconfigure(4, weight=1)
+        self.grid_rowconfigure(5, weight=1)
         self.grid_columnconfigure(0, weight=1)
 
         # load images with light and dark mode image
@@ -47,6 +48,11 @@ class NavigationFrame(customtkinter.CTkFrame):
                                                       image=self.add_user_image, anchor="w", command=self.frame_3_button_event)
         self.frame_3_button.grid(row=3, column=0, sticky="ew")
 
+        self.frame_4_button = customtkinter.CTkButton(self, corner_radius=0, height=40, border_spacing=10, text="Example",
+                                                      fg_color="transparent", text_color=("gray10", "gray90"), hover_color=("gray70", "gray30"),
+                                                      image=self.add_user_image, anchor="w", command=self.frame_4_button_event)
+        self.frame_4_button.grid(row=4, column=0, sticky="ew")
+
         self.appearance_mode_menu = customtkinter.CTkOptionMenu(self, values=["Light", "Dark", "System"],
                                                                 command=self.change_appearance_mode_event)
         self.appearance_mode_menu.grid(row=6, column=0, padx=20, pady=20, sticky="s")
@@ -54,6 +60,7 @@ class NavigationFrame(customtkinter.CTkFrame):
         self.home_frame = IndexFrame(master=master)
         self.second_frame = SecondFrame(master=master)
         self.third_frame = ThirdFrame(master=master)
+        self.example_frame = App(master=master)
 
         # select default frame
         self.select_frame_by_name("home")
@@ -63,11 +70,13 @@ class NavigationFrame(customtkinter.CTkFrame):
         self.home_button.configure(fg_color=("gray75", "gray25") if name == "home" else "transparent")
         self.frame_2_button.configure(fg_color=("gray75", "gray25") if name == "frame_2" else "transparent")
         self.frame_3_button.configure(fg_color=("gray75", "gray25") if name == "frame_3" else "transparent")
+        self.frame_4_button.configure(fg_color=("gray75", "gray25") if name == "example" else "transparent")
 
         # show selected frame
         self.home_frame.show(name)
         self.second_frame.show(name)
         self.third_frame.show(name)
+        self.example_frame.show(name)
         # if name == "frame_3":
         #     self.third_frame.grid(row=0, column=1, sticky="nsew")
         # else:
@@ -81,6 +90,9 @@ class NavigationFrame(customtkinter.CTkFrame):
 
     def frame_3_button_event(self):
         self.select_frame_by_name("frame_3")
+
+    def frame_4_button_event(self):
+        self.select_frame_by_name("example")
 
     def change_appearance_mode_event(self, new_appearance_mode):
         customtkinter.set_appearance_mode(new_appearance_mode)

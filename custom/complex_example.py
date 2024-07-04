@@ -6,13 +6,9 @@ customtkinter.set_appearance_mode("System")  # Modes: "System" (standard), "Dark
 customtkinter.set_default_color_theme("blue")  # Themes: "blue" (standard), "green", "dark-blue"
 
 
-class App(customtkinter.CTk):
-    def __init__(self):
-        super().__init__()
-
-        # configure window
-        self.title("CustomTkinter complex_example.py")
-        self.geometry(f"{1100}x{580}")
+class App(customtkinter.CTkFrame):
+    def __init__(self, master=None):
+        super().__init__(master, corner_radius=0)
 
         # configure grid layout (4x4)
         self.grid_columnconfigure(1, weight=1)
@@ -158,8 +154,8 @@ class App(customtkinter.CTk):
     def sidebar_button_event(self):
         print("sidebar_button click")
 
-
-if __name__ == "__main__":
-    customtkinter.set_appearance_mode("dark")
-    app = App()
-    app.mainloop()
+    def show(self, name):
+        if name == "example":
+            self.pack(side='right', fill='both', expand=True)
+        else:
+            self.pack_forget()
