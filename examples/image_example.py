@@ -1,6 +1,7 @@
 import customtkinter
 import os
 from PIL import Image
+from custom.contants import contants
 
 
 class App(customtkinter.CTk):
@@ -82,7 +83,7 @@ class App(customtkinter.CTk):
     def select_frame_by_name(self, name):
         # set button color for selected button
         self.home_button.configure(fg_color=("gray75", "gray25") if name == "home" else "transparent")
-        self.frame_2_button.configure(fg_color=("gray75", "gray25") if name == "frame_2" else "transparent")
+        self.frame_2_button.configure(fg_color=("gray75", "gray25") if name == contants.MENU_2_NAME else "transparent")
         self.frame_3_button.configure(fg_color=("gray75", "gray25") if name == "frame_3" else "transparent")
 
         # show selected frame
@@ -90,7 +91,7 @@ class App(customtkinter.CTk):
             self.home_frame.grid(row=0, column=1, sticky="nsew")
         else:
             self.home_frame.grid_forget()
-        if name == "frame_2":
+        if name == contants.MENU_2_NAME:
             self.second_frame.grid(row=0, column=1, sticky="nsew")
         else:
             self.second_frame.grid_forget()

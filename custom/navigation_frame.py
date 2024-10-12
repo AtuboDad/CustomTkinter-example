@@ -6,6 +6,8 @@ from custom.index_frame import IndexFrame
 from custom.second_frame import SecondFrame
 from custom.third_frame import ThirdFrame
 from custom.complex_example import App
+from custom.contants import contants
+
 
 customtkinter.set_appearance_mode("dark")
 
@@ -29,26 +31,26 @@ class NavigationFrame(customtkinter.CTkFrame):
         self.add_user_image = customtkinter.CTkImage(light_image=Image.open(os.path.join(image_path, "add_user_dark.png")),
                                                      dark_image=Image.open(os.path.join(image_path, "add_user_light.png")), size=(20, 20))
 
-        self.navigation_frame_label = customtkinter.CTkLabel(self, text="  Image Example", image=self.logo_image,
+        self.navigation_frame_label = customtkinter.CTkLabel(self, text="每天进步", image=self.logo_image,
                                                              compound="left", font=customtkinter.CTkFont(size=15, weight="bold"))
         self.navigation_frame_label.grid(row=0, column=0, padx=20, pady=20)
 
-        self.home_button = customtkinter.CTkButton(self, corner_radius=0, height=40, border_spacing=10, text="Home",
+        self.home_button = customtkinter.CTkButton(self, corner_radius=0, height=40, border_spacing=10, text="首 页",
                                                    fg_color="transparent", text_color=("gray10", "gray90"), hover_color=("gray70", "gray30"),
                                                    image=self.home_image, anchor="w", command=self.home_button_event)
         self.home_button.grid(row=1, column=0, sticky="ew")
 
-        self.frame_2_button = customtkinter.CTkButton(self, corner_radius=0, height=40, border_spacing=10, text="Frame 2",
+        self.frame_2_button = customtkinter.CTkButton(self, corner_radius=0, height=40, border_spacing=10, text="每日计划",
                                                       fg_color="transparent", text_color=("gray10", "gray90"), hover_color=("gray70", "gray30"),
                                                       image=self.chat_image, anchor="w", command=self.frame_2_button_event)
         self.frame_2_button.grid(row=2, column=0, sticky="ew")
 
-        self.frame_3_button = customtkinter.CTkButton(self, corner_radius=0, height=40, border_spacing=10, text="Frame 3",
+        self.frame_3_button = customtkinter.CTkButton(self, corner_radius=0, height=40, border_spacing=10, text="计划分析",
                                                       fg_color="transparent", text_color=("gray10", "gray90"), hover_color=("gray70", "gray30"),
                                                       image=self.add_user_image, anchor="w", command=self.frame_3_button_event)
         self.frame_3_button.grid(row=3, column=0, sticky="ew")
 
-        self.frame_4_button = customtkinter.CTkButton(self, corner_radius=0, height=40, border_spacing=10, text="Example",
+        self.frame_4_button = customtkinter.CTkButton(self, corner_radius=0, height=40, border_spacing=10, text="总结报告",
                                                       fg_color="transparent", text_color=("gray10", "gray90"), hover_color=("gray70", "gray30"),
                                                       image=self.add_user_image, anchor="w", command=self.frame_4_button_event)
         self.frame_4_button.grid(row=4, column=0, sticky="ew")
@@ -68,7 +70,7 @@ class NavigationFrame(customtkinter.CTkFrame):
     def select_frame_by_name(self, name):
         # set button color for selected button
         self.home_button.configure(fg_color=("gray75", "gray25") if name == "home" else "transparent")
-        self.frame_2_button.configure(fg_color=("gray75", "gray25") if name == "frame_2" else "transparent")
+        self.frame_2_button.configure(fg_color=("gray75", "gray25") if name == contants.MENU_2_NAME else "transparent")
         self.frame_3_button.configure(fg_color=("gray75", "gray25") if name == "frame_3" else "transparent")
         self.frame_4_button.configure(fg_color=("gray75", "gray25") if name == "example" else "transparent")
 
@@ -86,7 +88,7 @@ class NavigationFrame(customtkinter.CTkFrame):
         self.select_frame_by_name("home")
 
     def frame_2_button_event(self):
-        self.select_frame_by_name("frame_2")
+        self.select_frame_by_name(contants.MENU_2_NAME)
 
     def frame_3_button_event(self):
         self.select_frame_by_name("frame_3")

@@ -1,6 +1,7 @@
 import customtkinter
 import os
 from PIL import Image
+from custom.contants import contants
 
 customtkinter.set_appearance_mode("dark")
 
@@ -38,7 +39,7 @@ class SecondFrame(customtkinter.CTkFrame):
         self.home_frame_button_4.grid(row=4, column=0, padx=20, pady=10)
 
     def show(self, name):
-        if name == "frame_2":
+        if name == contants.MENU_2_NAME:
             self.pack(side='right', fill='both', expand=True)
             self.home_frame.pack(fill='both', expand=True)
         else:
